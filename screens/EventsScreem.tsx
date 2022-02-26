@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { FlatList, Image, StyleSheet } from 'react-native';
+import Card from '../components/Card';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -13,24 +14,33 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     events,
   } = useEvents();
 
-  console.log(events);
 
   return (
-    <View style={styles.container}>
-      {
-        events.map((event, index) => (<Text key={index} style={styles.title}>{event?.nome}</Text>))
-      }
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-    </View>
+    <FlatList
+      renderItem={({ item: event, index }) => <Card
+        key={index}
+        name={event.name}
+        timestamp={event.timestamp}
+        imageUrl={event.image}
+        onPress={() => navigation.push("Event", { event })}
+      />}
+      style={styles.container}
+      data={events}
+      keyExtractor={(item, index) => index}
+      ListFooterComponent={<View
+        style={{
+          height: 118
+        }}
+      />}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    padding: 18,
   },
   title: {
     fontSize: 20,

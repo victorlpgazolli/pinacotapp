@@ -1,10 +1,29 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio';
 
+const getDataFromElement = element => {
+    const children = element.children;
+
+    const dataElement = children.slice().shift();
+
+    const text = dataElement.data;
+
+    if (text) return text;
+
+    const dataChildren = dataElement.children.slice().shift().data;
+
+    if (dataChildren) return dataChildren;
+
+    const imageLinkData = dataElement.children.slice().shift().children.slice().shift().data;
+
+    if (imageLinkData) return imageLinkData;
+
+    return "";
+}
+
 export const spreadsheetsResponseInterceptor = async (response) => {
 
     try {
-
         const $ = cheerio.load(response.data);
 
         const elements = Array.from($('tr td[class^="s"]'))
@@ -15,8 +34,7 @@ export const spreadsheetsResponseInterceptor = async (response) => {
 
             if (!acc[0]) acc[0] = []
             const [currentColumn = []] = acc;
-            const value = item.children.slice().shift().data;
-
+            const value = getDataFromElement(item);
             if (currentColumn.length === (count)) {
                 acc.unshift([value]);
                 return acc;
@@ -46,8 +64,8 @@ export const spreadsheetsResponseInterceptor = async (response) => {
                 values[indexValues][column] = value.slice(indexColumn).shift()
             })
 
-        })
-
+        });
+        console.log(values);
         return values
     } catch (error) {
         console.log(error);
