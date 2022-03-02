@@ -26,6 +26,9 @@ export default function SmallCard({
             source={{ uri: image }}
             resizeMode="cover"
             borderRadius={30}
+            imageStyle={{
+                borderRadius: 30
+            }}
             style={[styles.background, {
                 width: '100%', height: '100%',
             }]}

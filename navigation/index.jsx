@@ -5,13 +5,12 @@
  */
 import { FontAwesome, Feather, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable, Image } from 'react-native';
+import { Pressable, } from 'react-native';
 
 import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
 import EventScreen from '../screens/EventScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -19,15 +18,14 @@ import ProfileScreen from '../screens/ProfileScreen';
 import SavedEventsScreen from '../screens/SavedEventsScreen';
 import SeachScreen from '../screens/SeachScreen';
 import EventsScreen from '../screens/EventsScreem';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 // import MenuIcon from '../assets/icons/menu.svg';
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+export default function Navigation({ colorScheme }) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -37,7 +35,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
 
 function RootNavigator() {
   return (
@@ -56,22 +54,30 @@ function RootNavigator() {
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const BottomTab = createBottomTabNavigator();
 
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
 
   return (
     <BottomTab.Navigator
       initialRouteName="EventsScreen"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors.light.tint,
         tabBarStyle: {
           marginBottom: 30,
           marginHorizontal: 28,
           position: "absolute",
           borderRadius: 17,
-          height: 70
+          height: 70,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+
+          elevation: 5,
         },
         tabBarItemStyle: {
           borderRadius: 17,
@@ -80,7 +86,7 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="EventsScreen"
         component={EventsScreen}
-        options={({ navigation }: RootTabScreenProps<'EventsScreen'>) => ({
+        options={({ navigation }) => ({
           title: 'Tab One',
           tabBarShowLabel: false,
           tabBarIcon: ({ color }) =>
@@ -100,7 +106,7 @@ function BottomTabNavigator() {
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={Colors[colorScheme].text}
+                color={Colors.light.text}
                 style={{ marginRight: 15 }}
               />
             </Pressable>

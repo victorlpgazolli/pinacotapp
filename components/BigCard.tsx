@@ -23,6 +23,9 @@ export default function BigCard({
             source={{ uri: imageUrl }}
             resizeMode="cover"
             borderRadius={30}
+            imageStyle={{
+                borderRadius: 30
+            }}
             style={[styles.background, {
                 width: '100%', height: '100%',
             }]}
@@ -75,7 +78,6 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: 'flex-end',
         backgroundColor: "transparent",
-
     },
     informations: {
         alignItems: 'flex-start',

@@ -17,22 +17,22 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           EventsScreen: {
             screens: {
-              EventsScreen: 'one',
+              EventsScreen: 'EventsScreen',
             },
           },
           SearchScreen: {
             screens: {
-              SearchScreen: 'one',
+              SearchScreen: 'SearchScreen',
             },
           },
           SavedEventsScreen: {
             screens: {
-              SavedEventsScreen: 'one',
+              SavedEventsScreen: 'SavedEventsScreen',
             },
           },
           ProfileScreen: {
             screens: {
-              ProfileScreen: 'one',
+              ProfileScreen: 'ProfileScreen',
             },
           },
         },

@@ -27,7 +27,8 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         keyExtractor={(item) => item.name}
         ListFooterComponent={<View
           style={{
-            height: 118
+            height: 120,
+            backgroundColor: "#fff"
           }}
         />}
       />
