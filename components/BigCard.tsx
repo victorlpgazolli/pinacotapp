@@ -3,7 +3,7 @@ import { ImageBackground, StyleSheet, TouchableOpacity, } from 'react-native';
 
 import { Text, View } from './Themed';
 
-export default function Card({
+export default function BigCard({
     name = "Nome",
     timestamp = "20h",
     imageUrl = "https://reactjs.org/logo-og.png",

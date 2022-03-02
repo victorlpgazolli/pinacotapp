@@ -90,7 +90,7 @@ function BottomTabNavigator() {
               color={color}
               style={{ marginRight: 15 }}
             />,
-          headerTitle: "",
+          headerShown: false,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -128,6 +128,7 @@ function BottomTabNavigator() {
         options={{
           title: 'Tab Three',
           tabBarShowLabel: false,
+          headerShown: false,
           tabBarIcon: ({ color }) =>
             <Feather
               name="heart"

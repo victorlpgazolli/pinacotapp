@@ -1,11 +1,8 @@
-import { useEffect } from 'react';
-import { FlatList, Image, StyleSheet } from 'react-native';
-import Card from '../components/Card';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { FlatList, StyleSheet } from 'react-native';
+import { SafeAreaView, Edge } from 'react-native-safe-area-context';
+import BigCard from '../components/BigCard';
+import { View } from '../components/Themed';
 import useEvents from '../hooks/useEvents';
-import { spreadsheetApi } from '../services/api';
 
 import { RootTabScreenProps } from '../types';
 
@@ -16,23 +13,25 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
 
   return (
-    <FlatList
-      renderItem={({ item: event, index }) => <Card
-        key={index}
-        name={event.name}
-        timestamp={event.timestamp}
-        imageUrl={event.image}
-        onPress={() => navigation.push("Event", { event })}
-      />}
-      style={styles.container}
-      data={events}
-      keyExtractor={(item, index) => index}
-      ListFooterComponent={<View
-        style={{
-          height: 118
-        }}
-      />}
-    />
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        renderItem={({ item: event, index }) => <BigCard
+          key={index}
+          name={event.name}
+          timestamp={event.timestamp}
+          imageUrl={event.image}
+          onPress={() => navigation.push("Event", { event })}
+        />}
+        style={{ padding: 18, }}
+        data={events}
+        keyExtractor={(item) => item.name}
+        ListFooterComponent={<View
+          style={{
+            height: 118
+          }}
+        />}
+      />
+    </SafeAreaView>
   );
 }
 
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: 18,
+
   },
   title: {
     fontSize: 20,
