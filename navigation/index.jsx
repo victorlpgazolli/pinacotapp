@@ -119,6 +119,7 @@ function BottomTabNavigator() {
         options={{
           title: 'Tab Two',
           tabBarShowLabel: false,
+          headerShown: false,
           tabBarIcon: ({ color }) =>
             <Feather
               name="search"
