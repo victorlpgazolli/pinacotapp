@@ -17,7 +17,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SavedEventsScreen from '../screens/SavedEventsScreen';
 import SeachScreen from '../screens/SeachScreen';
-import EventsScreen from '../screens/EventsScreem';
+import EventsScreen from '../screens/EventsScreen';
 import LinkingConfiguration from './LinkingConfiguration';
 // import MenuIcon from '../assets/icons/menu.svg';
 
@@ -150,6 +150,7 @@ function BottomTabNavigator() {
         options={{
           title: 'Tab Four',
           tabBarShowLabel: false,
+          headerShown: false,
           tabBarIcon: ({ color }) =>
             <Feather
               name="user"
@@ -161,14 +162,4 @@ function BottomTabNavigator() {
       />
     </BottomTab.Navigator>
   );
-}
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }
