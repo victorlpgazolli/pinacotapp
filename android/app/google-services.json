@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "319774002318",
+    "project_id": "pinacotapp",
+    "storage_bucket": "pinacotapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319774002318:android:39b16e3b17d30ffb494ddf",
+        "android_client_info": {
+          "package_name": "pinacotapp.victorlpgazolli.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319774002318-78b7980ndhfqnpl1n823gd8u4eegotr2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pinacotapp.victorlpgazolli.dev",
+            "certificate_hash": "0b5dbca66521090be86f00ddef53f6b79b65228c"
+          }
+        },
+        {
+          "client_id": "319774002318-s7if4u37mp2mci9n2gj0kle450u13uq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANVjUXcMOVrBFFR6W-XfgewM44R_nc_Rs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319774002318-s7if4u37mp2mci9n2gj0kle450u13uq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
