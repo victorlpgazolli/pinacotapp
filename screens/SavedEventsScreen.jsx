@@ -2,32 +2,38 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import HorizontalEventsList from '../components/HorizontalEventsList';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useEvents } from '../hooks/useEvents';
+import { useEventsByPeriod } from '../hooks/useEvents';
 
 const SavedEventsScreen = () => {
     const {
         events,
-    } = useEvents();
+    } = useEventsByPeriod({ eventSavedIsAFilter: true });
     return (
         <SafeAreaView>
             <ScrollView
                 contentContainerStyle={[styles.body]}>
-                <View style={[styles.contentCard]}>
-                    <Text style={[styles.title]}>
-                        Esta semana
-                    </Text>
-                    <HorizontalEventsList
-                        events={events}
-                    />
-                </View>
-                <View style={[styles.contentCard]}>
-                    <Text style={[styles.title]}>
-                        Semana passada
-                    </Text>
-                    <HorizontalEventsList
-                        events={events}
-                    />
-                </View>
+                {
+                    events.currentWeek &&
+                    <View style={[styles.contentCard]}>
+                        <Text style={[styles.title]}>
+                                Esta Semana
+                            </Text>
+                            <HorizontalEventsList
+                                events={events.currentWeek}
+                            />
+                        </View>
+                }
+                {
+                    events.lastWeek &&
+                    <View style={[styles.contentCard]}>
+                        <Text style={[styles.title]}>
+                                Ultimas Semanas
+                            </Text>
+                            <HorizontalEventsList
+                                events={events.lastWeek}
+                            />
+                        </View>
+                }
             </ScrollView>
         </SafeAreaView>
     )

@@ -1,3 +1,4 @@
+import { differenceInWeeks, isThisWeek, isWithinInterval, subWeeks } from 'date-fns';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEvents, setEventAsSaved, } from '../store/features/events';
@@ -40,7 +41,7 @@ export const useSavedEvents = () => {
             return acc;
         }, {})
     }, [savedEvents])
-    console.log({ savedEventsByName });
+
     return {
         savedEvents,
         savedEventsByName
@@ -58,6 +59,68 @@ export const useIsEventSaved = (event) => {
     );
 
     return !!isEventSaved;
+};
+
+export const useEventsByPeriod = ({
+    eventSavedIsAFilter = false
+} = {}) => {
+    const {
+        events
+    } = useEvents();
+    const {
+        savedEventsByName
+    } = useSavedEvents()
+
+    const eventsByDate = useMemo(() => {
+        const [lastWeek, currentWeek] = [0, 1]
+        const datesValidators = {
+            [lastWeek]: (eventDate) => differenceInWeeks(
+                new Date(),
+                subWeeks(new Date(eventDate), 1),
+            ) >= 2,
+            [currentWeek]: (eventDate) => isThisWeek(
+                new Date(eventDate)
+            ),
+        };
+
+        const datesAvailable = {
+            [lastWeek]: null,
+            [currentWeek]: null,
+        };
+
+        const eventsPerPeriod = events.reduce((acc, event) => {
+
+            for (const [period, validator] of Object.entries(datesValidators)) {
+                const eventDate = event.timestamp;
+
+                const isFromThisPeriod = validator(eventDate);
+                console.log(isFromThisPeriod, eventDate);
+                if (!isFromThisPeriod) continue;
+
+                const eventIsSaved = !!savedEventsByName[event.name];
+
+                const filterBySavedEvent = eventSavedIsAFilter && !eventIsSaved;
+
+                if (filterBySavedEvent) continue;
+
+                if (!acc[period]) acc[period] = [];
+
+                acc[period].push(event);
+            }
+            return acc;
+
+        }, datesAvailable);
+
+        return {
+            lastWeek: eventsPerPeriod[lastWeek],
+            currentWeek: eventsPerPeriod[currentWeek],
+        }
+
+    }, [events, savedEventsByName])
+
+    return {
+        events: eventsByDate
+    }
 };
 
 export const useEventsPerCategory = () => {
