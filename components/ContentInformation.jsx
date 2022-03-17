@@ -7,6 +7,7 @@ const ContentInformation = ({
     metadata = "",
     descriptionTitle = "Descrição",
     descriptionText = "",
+    isEventSaved = false,
     onPress
 }) => {
     return (
@@ -29,11 +30,19 @@ const ContentInformation = ({
                             onPress={onPress}
 
                         >
-                            <AntDesign
-                                name="hearto"
-                                size={30}
-                                color={"#A64138"}
-                            />
+                                {
+                                    isEventSaved
+                                        ? <AntDesign
+                                            name="heart"
+                                            size={30}
+                                            color={"#A64138"}
+                                        />
+                                        : <AntDesign
+                                            name="hearto"
+                                            size={30}
+                                            color={"#A64138"}
+                                        />
+                                }
                         </TouchableOpacity>
                     </View>
                 }

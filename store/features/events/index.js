@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { findEventByExactName } from '../../../helpers/find'
 import { getUniqueCategoriesFromEvents } from '../../../helpers/parser'
 import {
     fetchEvents
@@ -8,12 +9,34 @@ import {
 const initialState = {
     events: [],
     categories: [],
+    saved: [],
 }
 
 export const eventsSlice = createSlice({
     name: 'coach',
     initialState,
     reducers: {
+        setEventAsSaved: (state, {
+            payload: eventName,
+        }) => {
+            const findEventByname = findEventByExactName(eventName);
+
+            const event = state.events.find(findEventByname);
+
+            if (!event) return;
+
+            const savedEventIndex = state.saved.findIndex(findEventByname);
+
+            const hasToAdd = savedEventIndex === -1;
+
+            console.log({ hasToAdd });
+            if (hasToAdd) {
+                state.saved.push(event);
+                return;
+            }
+
+            state.saved.splice(savedEventIndex, 1);
+        }
     },
     extraReducers: {
         [fetchEvents.fulfilled]: (state, {
@@ -30,6 +53,13 @@ export const eventsSlice = createSlice({
 })
 
 
-export { fetchEvents }
+const {
+    setEventAsSaved
+} = eventsSlice.actions;
+
+export {
+    fetchEvents,
+    setEventAsSaved
+}
 
 export default eventsSlice.reducer

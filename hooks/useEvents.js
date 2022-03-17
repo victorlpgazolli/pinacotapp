@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEvents } from '../store/features/events';
-import { categoriesSelector, eventsPerCategorySelector, eventsSelector } from '../store/features/events/selectors';
+import { fetchEvents, setEventAsSaved, } from '../store/features/events';
+import { categoriesSelector, eventsPerCategorySelector, eventsSelector, savedEventsSelector } from '../store/features/events/selectors';
 import useDebounce from './useDebounce';
 
 export const useEventsActions = () => {
@@ -9,10 +9,15 @@ export const useEventsActions = () => {
 
     const getEvents = useCallback(() => {
         dispatch(fetchEvents());
+    }, [dispatch]);
+
+    const saveEvent = useCallback(({ name }) => {
+        dispatch(setEventAsSaved(name));
     }, [dispatch])
 
     return {
-        getEvents
+        getEvents,
+        saveEvent
     }
 };
 
@@ -25,6 +30,34 @@ export const useEvents = () => {
         ...actions,
         events,
     }
+};
+
+export const useSavedEvents = () => {
+    const savedEvents = useSelector(savedEventsSelector);
+    const savedEventsByName = useMemo(() => {
+        return savedEvents.reduce((acc, event) => {
+            acc[event.name] = event;
+            return acc;
+        }, {})
+    }, [savedEvents])
+    console.log({ savedEventsByName });
+    return {
+        savedEvents,
+        savedEventsByName
+    }
+};
+
+export const useIsEventSaved = (event) => {
+    const {
+        savedEventsByName
+    } = useSavedEvents();
+
+    const isEventSaved = useMemo(
+        () => savedEventsByName[event.name],
+        [savedEventsByName, event]
+    );
+
+    return !!isEventSaved;
 };
 
 export const useEventsPerCategory = () => {

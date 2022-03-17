@@ -8,20 +8,22 @@ export default function SmallCard({
     name = "Nodbasdiasbdiabsdaime",
     timestamp = new Date().toISOString(),
     image = "https://reactjs.org/logo-og.png",
+    isEventSaved = false,
     onPressCard = console.log,
     onPressHeart = console.log,
 }: {
     name: string
     timestamp: string
     image: string
+        isEventSaved: boolean
     onPressCard: () => void
     onPressHeart: () => void
 }) {
 
     const date = format(new Date(timestamp), "yyyy-MM-dd")
     const time = format(new Date(timestamp), "hh")
-    return (
 
+    return (
         <ImageBackground
             source={{ uri: image }}
             resizeMode="cover"
@@ -60,11 +62,20 @@ export default function SmallCard({
                                 onPress={onPressHeart}
 
                             >
-                                <AntDesign
-                                    name="hearto"
-                                    size={30}
-                                    color={"#fff"}
-                                />
+                                {
+                                    isEventSaved
+                                        ? <AntDesign
+                                            name="heart"
+                                            size={30}
+                                            color={"#A64138"}
+                                        />
+                                        : <AntDesign
+                                            name="hearto"
+                                            size={30}
+                                            color={"#fff"}
+                                        />
+                                }
+
                             </TouchableOpacity>
                         </View>
                     </View>

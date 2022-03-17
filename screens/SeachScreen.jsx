@@ -4,12 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import HorizontalEventsList from '../components/HorizontalEventsList'
 import EventSearchInput from '../components/EventSearchInput'
-import { useEventsPerCategory, useEventsPerFilter } from '../hooks/useEvents'
+import { useEventsPerFilter } from '../hooks/useEvents'
 import { getEventsPerCategory } from '../helpers/parser'
 
 const SeachScreen = () => {
-
-
 
     const {
         events,
