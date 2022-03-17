@@ -1,14 +1,15 @@
 import { StyleSheet, TextInput, View } from 'react-native'
 import React from 'react'
-import useDebounce from '../hooks/useDebounce';
 import { Feather } from '@expo/vector-icons';
 import HorizontalCategories from './HorizontalCategories';
+import { useSelector } from 'react-redux';
+import { categoriesSelector } from '../store/features/events/selectors';
 
 const EventSearchInput = ({
-    onChangeText,
+    onSearch,
     onPressCategory,
 }) => {
-    const onSearch = useDebounce(onChangeText, 1000);
+    const categories = useSelector(categoriesSelector)
     return (
         <View
             style={[
@@ -29,6 +30,7 @@ const EventSearchInput = ({
             />
             <HorizontalCategories
                 onPressCategory={onPressCategory}
+                categories={categories}
             />
         </View>
     )

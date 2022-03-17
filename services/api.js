@@ -65,7 +65,7 @@ export const spreadsheetsResponseInterceptor = async (response) => {
             })
 
         });
-        console.log(values);
+
         return values
     } catch (error) {
         console.log(error);

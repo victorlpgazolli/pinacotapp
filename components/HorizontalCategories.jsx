@@ -1,18 +1,54 @@
 import { FlatList, Pressable, StyleSheet, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Colors from '../constants/Colors'
 
+const prepareCategories = name => ({
+    name,
+    selected: false
+})
 const mock = [
-    { name: "Musica" },
-    { name: "Historia" },
-    { name: "Arte" },
-    { name: "Workshop" },
-    { name: "Apresentação" },
+    "Musica",
+    "Historia",
+    "Arte",
+    "Workshop",
+    "Apresentação",
 ]
 const HorizontalCategories = ({
     categories = mock,
     onPressCategory = () => { }
 }) => {
+    const [categoriesList, setCategories] = useState([]);
+
+    useEffect(() => {
+
+        const categoriesWithProps = categories.map(prepareCategories);
+        setCategories(categoriesWithProps);
+
+    }, [categories]);
+
+    const onSelectCategory = (categoryName) => {
+
+        const categoryIndex = categoriesList.findIndex(category => category.name === categoryName);
+
+        const newCategoriesList = [...categories].map(prepareCategories)
+
+        const [oldCategory] = [...categoriesList].splice(categoryIndex, 1);
+
+        const newCategory = {
+            name: categoryName,
+            selected: !oldCategory.selected,
+        }
+        onPressCategory(
+            newCategory.selected
+                ? categoryName
+                : ""
+        );
+
+        newCategoriesList.splice(categoryIndex, 1, newCategory);
+
+        setCategories(newCategoriesList)
+    }
+
     return (
         <FlatList
             horizontal={true}
@@ -30,14 +66,19 @@ const HorizontalCategories = ({
                                 ? styles.categoryPressed
                                 : styles.categoryReleased
                         ]}
-                        onPress={() => onPressCategory(category)}
+                        onPress={() => {
+                            onSelectCategory(category.name);
+                        }}
                     >
                         <Text
+                            style={category.selected
+                                ? styles.categoryPressed
+                                : styles.categoryReleased}
                             numberOfLines={1}
                         >{category.name}</Text>
                     </Pressable>
             }
-            data={categories}
+            data={categoriesList}
         />
     )
 }

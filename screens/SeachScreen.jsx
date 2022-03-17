@@ -1,44 +1,58 @@
-import { FlatList, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useMemo } from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+
 import HorizontalEventsList from '../components/HorizontalEventsList'
-import useEvents from '../hooks/useEvents'
-import { Feather } from '@expo/vector-icons'
-import Colors from '../constants/Colors'
-import HorizontalCategories from '../components/HorizontalCategories'
-import useDebounce from '../hooks/useDebounce'
 import EventSearchInput from '../components/EventSearchInput'
+import { useEventsPerCategory, useEventsPerFilter } from '../hooks/useEvents'
+import { getEventsPerCategory } from '../helpers/parser'
 
 const SeachScreen = () => {
+
+
+
     const {
         events,
-    } = useEvents();
-    const [textSearched, setTextSearched] = useState(null)
+        onTextSearch,
+        onCategorySearch,
+        categoryNameSelected
+    } = useEventsPerFilter();
+
+    const eventsPerCategory = useMemo(
+        () => {
+            const eventsPerCategory = getEventsPerCategory(events);
+            const listWhenFilter = {
+                [categoryNameSelected]: eventsPerCategory[categoryNameSelected],
+            }
+            return categoryNameSelected
+                ? listWhenFilter
+                : eventsPerCategory
+        },
+        [events, categoryNameSelected]
+    )
 
     return (
         <SafeAreaView>
             <EventSearchInput
-                onChangeText={setTextSearched}
-                onPressCategory={console.log}
+                onSearch={onTextSearch}
+                onPressCategory={onCategorySearch}
             />
             <ScrollView
                 contentContainerStyle={[styles.body]}>
-                <View style={[styles.contentCard]}>
-                    <Text style={[styles.title]}>
-                        Esta semana
-                    </Text>
-                    <HorizontalEventsList
-                        events={events}
-                    />
-                </View>
-                <View style={[styles.contentCard]}>
-                    <Text style={[styles.title]}>
-                        Semana passada
-                    </Text>
-                    <HorizontalEventsList
-                        events={events}
-                    />
-                </View>
+                {
+                    Object.entries(eventsPerCategory).map(([category, eventsFromCategory]) => (
+                        <View
+                            key={category}
+                            style={[styles.contentCard]}>
+                            <Text style={[styles.title]}>
+                                {category}
+                            </Text>
+                            <HorizontalEventsList
+                                events={eventsFromCategory}
+                            />
+                        </View>
+                    ))
+                }
             </ScrollView>
         </SafeAreaView>
     )

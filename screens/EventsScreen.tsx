@@ -1,16 +1,21 @@
+import { useEffect } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView, Edge } from 'react-native-safe-area-context';
 import BigCard from '../components/BigCard';
 import { View } from '../components/Themed';
-import useEvents from '../hooks/useEvents';
+import { useEvents } from '../hooks/useEvents';
 
 import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const {
     events,
+    getEvents
   } = useEvents();
 
+  useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

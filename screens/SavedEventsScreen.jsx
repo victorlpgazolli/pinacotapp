@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import useEvents from '../hooks/useEvents';
 import HorizontalEventsList from '../components/HorizontalEventsList';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useEvents } from '../hooks/useEvents';
 
 const SavedEventsScreen = () => {
     const {
