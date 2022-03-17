@@ -15,6 +15,7 @@ declare global {
 
 export type RootStackParamList = {
   Event: NavigatorScreenParams<RootTabParamList> | undefined;
+  Login: NavigatorScreenParams<RootTabParamList> | undefined;
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   EventsScreen: NavigatorScreenParams<RootTabParamList> | undefined;
   SearchScreen: NavigatorScreenParams<RootTabParamList> | undefined;

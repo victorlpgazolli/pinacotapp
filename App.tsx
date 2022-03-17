@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import GoogleSignInConfigure from './components/GoogleSignInConfigure';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -16,9 +17,10 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-          <Provider store={store}>
+        <Provider store={store}>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
+          <GoogleSignInConfigure />
         </Provider>
       </SafeAreaProvider>
     );

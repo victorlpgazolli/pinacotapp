@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "319774002318-78b7980ndhfqnpl1n823gd8u4eegotr2.apps.googleusercontent.com",
+          "client_id": "319774002318-5hdb029apc7vjmgifbfn50srl6b3q56q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "pinacotapp.victorlpgazolli.dev",
-            "certificate_hash": "0b5dbca66521090be86f00ddef53f6b79b65228c"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "319774002318-a9tcp52adod443n7dmet2uogkd0lgjgv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pinacotapp.victorlpgazolli.dev",
+            "certificate_hash": "1b73896a35dfe1c797f89d0268003d19b7b63749"
           }
         },
         {

@@ -13,7 +13,7 @@ const initialState = {
 }
 
 export const eventsSlice = createSlice({
-    name: 'coach',
+    name: 'events',
     initialState,
     reducers: {
         setEventAsSaved: (state, {
@@ -29,7 +29,6 @@ export const eventsSlice = createSlice({
 
             const hasToAdd = savedEventIndex === -1;
 
-            console.log({ hasToAdd });
             if (hasToAdd) {
                 state.saved.push(event);
                 return;

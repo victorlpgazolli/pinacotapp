@@ -3,14 +3,18 @@ import { Image, StyleSheet, TouchableOpacity, useWindowDimensions, View } from '
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { MaterialIcons } from '@expo/vector-icons';
 
+const userImageWidth = 150
 const ContentWithImageBackground = ({
     image,
     children,
     onGoBack,
+    customImage,
 }) => {
     const {
-        height
+        height,
+        width
     } = useWindowDimensions();
+    console.log(customImage);
     return (
         <SafeAreaView style={[styles.flex]}>
 
@@ -20,6 +24,18 @@ const ContentWithImageBackground = ({
                         height: (height / 2) + 40,
                         width: "100%",
                     }} />
+                {
+                    customImage &&
+                    <Image source={customImage}
+                        style={{
+                            height: userImageWidth,
+                            width: userImageWidth,
+                            position: "absolute",
+                            left: (width / 2) - userImageWidth / 2,
+                            top: (width / 2) - userImageWidth / 2,
+                            borderRadius: 30
+                        }} />
+                }
                 {
                     onGoBack &&
                     <TouchableOpacity
