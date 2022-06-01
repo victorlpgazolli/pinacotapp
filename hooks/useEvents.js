@@ -94,7 +94,7 @@ export const useEventsByPeriod = ({
                 const eventDate = event.timestamp;
 
                 const isFromThisPeriod = validator(eventDate);
-                console.log(isFromThisPeriod, eventDate);
+
                 if (!isFromThisPeriod) continue;
 
                 const eventIsSaved = !!savedEventsByName[event.name];

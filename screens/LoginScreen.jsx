@@ -21,7 +21,6 @@ export default function LoginScreen({ navigation }) {
   useEffect(() => {
     if (!!userInfo) navigation.navigate("Root")
   }, [userInfo]);
-  console.log(userInfo);
 
   return (
     <SafeAreaView style={styles.container}>

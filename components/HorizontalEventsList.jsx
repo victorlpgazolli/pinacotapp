@@ -22,7 +22,6 @@ export default function HorizontalEventsList({
     }
 
     const onPressHeart = (event) => {
-        console.log(event);
         saveEvent(event)
     }
     return (

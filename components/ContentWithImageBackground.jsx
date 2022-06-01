@@ -14,7 +14,7 @@ const ContentWithImageBackground = ({
         height,
         width
     } = useWindowDimensions();
-    console.log(customImage);
+
     return (
         <SafeAreaView style={[styles.flex]}>
 
